@@ -15,7 +15,7 @@ docker build -t elasticsearch ./dockerfiles/
 ### Running/starting an instance
 ```
 docker run -it -p 9200:9200 -p 9300:9300 elasticsearch bash
-service elsticsearch start
+service elasticsearch start
 ```
 
 ### Stopping your instance
