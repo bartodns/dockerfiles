@@ -31,16 +31,16 @@
 FROM ubuntu:latest
 RUN apt-get install software-properties-common -y
 RUN apt-get update
-RUN add-apt-repository ppa:webupd8team/java -y && apt-get update
+RUN add-apt-repository ppa:webupd8team/java -y && apt-get update --fix-missing
 RUN echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | debconf-set-selections && apt-get install -y oracle-java8-installer
+RUN apt-get install curl -y
+RUN apt-get install tmux -y
 RUN wget https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-1.5.1.deb
 RUN dpkg -i elasticsearch*deb
 RUN /etc/init.d/elasticsearch start
 RUN /usr/share/elasticsearch/bin/plugin --install mobz/elasticsearch-head
 RUN /usr/share/elasticsearch/bin/plugin --install org.codelibs/elasticsearch-reindexing/1.4.2
-RUN apt-get install curl -y
-RUN apt-get install tmux -y
-RUN apt-get install nmap -y
+RUN /usr/share/elasticsearch/bin/plugin --install elasticsearch/elasticsearch-cloud-aws/2.5.0
 
 # minor cleanup
 RUN rm -rf /var/lib/apt/lists/*
